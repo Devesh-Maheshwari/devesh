@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Posts</title>
+</head>
+
+<body>
+
+{% if user.is_authenticated %}
+{{ request.user }} | <a href="#" onClick="document.getElementById('logoutform').submit()"><button type="button">Logout</button></a>
+<form id="logoutform" method="POST" action="{% url 'accounts:logout' %}">
+{% csrf_token %}
+<input type="hidden">
+</form>
+{% else %}
+ <a href="{% url 'clients:login' %}">login</a>
+{% endif %}
+<h1>YOU HAVE LOGGED OUT!
+
+<br/><br/>
+
+
+
+
+</body>
+</html>

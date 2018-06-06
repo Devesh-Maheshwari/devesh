@@ -1,0 +1,25 @@
+<table border="1" cellpadding="2">
+	<tr><th>emp_code</th>
+		<th>emp_name</th>
+		<th>salary</th>
+		<th>role</th>
+		<th>email</th>
+		<th>emp_mobile</th>
+
+   
+
+
+
+
+
+
+	</tr>
+	<td>{{emp.emp_code}}</td>
+	<td>{{emp.emp_name}}</td>
+	<td>{{emp.salary}}</td>
+	<td>{{emp.role}}</td>
+	<td>{{emp.email}}</td>
+	<td>{{emp.emp_mobile}}</td>
+	<td><button><a href="{% url 'clients:employeeedit' emp.id %}">edit</a></button></td>
+	<td><button><a href="{% url 'clients:delete' emp.id %}">delete</a></button></td>
+</tr>

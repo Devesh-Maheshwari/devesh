@@ -1,0 +1,28 @@
+<table border="1" cellpadding="2">
+	<tr><th>project</th>
+		<th>assign</th>
+		<th>employee</th>
+		<th>m_name</th>
+		<th>m_code</th>
+		<th>end_date</th>
+
+   
+
+
+
+
+
+
+	</tr>
+	<tr><td>{{projmod.project}}</td>
+	<td>{{projmod.assign}}</td>
+	<td>{{projmod.employee}}</td>
+	<td>{{projmod.m_name}}</td>
+	<td>{{projmod.m_code}}</td>
+	<td>{{projmod.end_date}}</td>
+	<td><button><a href="{% url 'clients:editprojectmod' projmod.id %}">edit</button></a></button></td>
+	<td><button><a href="{% url 'clients:deleteprojectmod' projmod.id %}">delete</button></a></button></td>
+
+
+
+</tr>

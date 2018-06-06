@@ -1,0 +1,25 @@
+<table border="1" cellpadding="2">
+	<tr><th>company_name</th>
+		<th>project_name</th>
+		<th>startdate</th>
+		<th>end_date</th>
+		<th>description</th>
+		<th>project_code</th>
+
+   
+
+
+
+
+
+
+	</tr>
+	<tr><td>{{proj.company_name}}</td>
+	<td>{{proj.project_name}}</td>
+	<td>{{proj.startdate}}</td>
+	<td>{{proj.end_date}}</td>
+	<td>{{proj.description}}</td>
+	<td>{{proj.project_code}}</td>
+	<td><button><a href="{% url 'clients:projectedit' proj.id %}">edit</a></button></td>
+	<td><button><a href="{% url 'clients:projectdelete' proj.id %}">delete</a></button></td>
+</tr>

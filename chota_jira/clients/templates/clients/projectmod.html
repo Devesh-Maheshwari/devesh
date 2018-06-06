@@ -1,0 +1,15 @@
+<button> <a href="{% url 'clients:addprojectmod' %}">add</a></button>
+{% if projectmod_list %}
+
+{% for projectmod in projectmod_list %}
+
+
+
+<ul type="circle">
+<li ><a href="{% url 'clients:projectmoddetail' projectmod.id %}">{{projectmod.m_name}}</a>
+</li>
+</ul>
+{% endfor %}
+{% else %}
+<h1>no employees right now!</h1>
+{% endif %}

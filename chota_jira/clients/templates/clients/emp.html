@@ -1,0 +1,14 @@
+
+{% if emp_list %}
+{% for emp in emp_list %}
+
+
+
+<ul type="circle">
+<li ><a href="{% url 'clients:empdetail' emp.id %}">{{emp.username}}</a>
+</li>
+</ul>
+{% endfor %}
+{% else %}
+<h1>no employees right now!</h1>
+{% endif %}

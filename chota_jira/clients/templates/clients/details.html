@@ -1,0 +1,28 @@
+{% if company %}
+
+
+
+<table border="2" cellpadding="4" cellspacing="5">
+	<tr>
+	<th >company_name</th>
+	<th>company_location</th>
+	<th>company_description</th>
+	<th>company_code</th>
+	<th>created</th>
+	<th>updated</th></tr>
+
+<tr><td ><center>{{company.company_name}}</center></td>
+	<td><center>{{company.company_location}}</center></td>
+	<td><center>{{company.company_description}}</center></td>
+	<td><center>{{company.company_code}}</center></td>
+	<td><center></center>{{company.created}}</td>
+	<td>{{company.updated}}</td>
+	<td><button><a href="{% url 'clients:company' company.id %}">edit</button></a></button></td>
+	<td><button><a href="{% url 'clients:delete12' company.id %}">delete</button></a></button></td>
+
+</tr>
+
+{% else %}
+<p> no details available</p>
+
+{% endif%}

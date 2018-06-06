@@ -1,0 +1,28 @@
+
+<button><a href="{% url 'clients:company_html' %}"> add company </a></button>
+
+<button><a href="{% url 'clients:project' %}"> add project</a> </button>
+<button><a href="{% url 'clients:addprojectmod' %}"> add project module</a> </button>
+
+{% if company_list %}
+<ul>
+
+	{% for company in company_list %}
+	
+	<li><a href="{% url 'clients:details' company.id %}">{{company.company_name}}</a></li>
+
+<a href="{% url 'clients:p' %}"><button>project</button></a>
+
+
+
+
+
+	{% endfor %}
+</ul>
+{% else %}
+<h2> No clients are available right now!</h2>
+
+
+{% endif%}
+
+
