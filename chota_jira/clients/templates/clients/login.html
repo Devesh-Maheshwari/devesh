@@ -3,11 +3,14 @@
 
 <form method="post">
     {% csrf_token %}
-     {{form.as_p}}
-    
+
+    <input type="text" name="username">
+    <input type="password" name="password">
 
 
-
+{% if error %}
+    {{error}}
+{% endif %}
     <input type="submit" value="Submit" />
 </form>
 <a href="{%url 'clients:logout'%}"><button>logout</button></a>

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from clients.views import  auth_login
+from clients.views import auth_login
 
 app_name = 'clients'
 

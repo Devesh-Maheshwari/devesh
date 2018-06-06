@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404, redirect,HttpResponseRedi
 from django.urls import reverse_lazy,reverse
 
 from .models import Company,Project,Projectmodule,User
-from .forms import NameForm,EmployeeForm,ProjectForm,projectmodform,UserForm
+from .forms import NameForm,EmployeeForm,ProjectForm,projectmodform,UserForm,LoginForm
 from django.contrib.auth import authenticate, login,logout
 from django.views.generic import View
 from django.views.generic.edit import FormView
@@ -231,12 +231,13 @@ def auth_login(request):
 		user = authenticate(username=username, password=password)
 		if user:
 			login(request,user)
-			return HttpResponseRedirect('/clients/index/')
+			return HttpResponseRedirect('/clients/index')
 		else:
-			return HttpResponse("sorry! you had given wrong credentials.")
-			return render(request, 'clients/login.html',{'error':error})
+
+			return render(request, 'clients/login.html',{'error':'Invalid credentials'})
 	else:
-		return render(request, 'clients/login.html')
+		form=LoginForm()
+		return render(request, 'clients/login.html',{'form':form})
 
 
 
