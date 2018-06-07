@@ -32,7 +32,7 @@ urlpatterns = [
     path('pm/edit/<int:id>',views.projectmodedit,name='editprojectmod'),
     path('pm/delete/<int:id>',views.projectmoddelete,name='deleteprojectmod'),
     path('register/',views.UserFormView.as_view()),
-    path('login/', auth_login,name='login'),
+    path('login/', views.auth_login,name='login'),
     path('logout/', auth_views.logout,{'template_name':'clients/logout.html'},name='logout'),
 
   

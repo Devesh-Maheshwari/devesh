@@ -3,11 +3,15 @@ from django.urls import reverse_lazy,reverse
 
 from .models import Company,Project,Projectmodule,User
 from .forms import NameForm,EmployeeForm,ProjectForm,projectmodform,UserForm,LoginForm
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import login, logout
 from django.views.generic import View
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from django.contrib.auth import authenticate
+
+
 
 @login_required
 def index(request):
@@ -18,11 +22,7 @@ def index(request):
 
 @login_required
 def details(request,id):
-	
-
 	company =  get_object_or_404(Company, pk=id)
-	
-
 	return render(request, 'clients/details.html',{'company':company})
 
 
@@ -40,9 +40,6 @@ def empdetail(request,id):
 	return render(request,'clients/empdetail.html',{'emp':emp})
 
 
-
-
-
 @login_required
 def employeeedit(request,id):
 	instance = get_object_or_404(User, id=id)
@@ -51,13 +48,6 @@ def employeeedit(request,id):
 		form.save()
 		return redirect('/clients/e/' + str(instance.id) + '/')
 	return render(request, 'clients/employee.html', {'form': form}) 
-
-
-
-
-
-
-
 
 
 @login_required
@@ -153,30 +143,6 @@ class projectdelete(DeleteView):
 		return self.post(request, *args, **kwargs)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @login_required
 def projectmodindex(request):
 	projectmod_list=Projectmodule.objects.order_by('id')
@@ -222,11 +188,13 @@ def projectmoddelete(request,id):
 	return redirect('/clients/pm')
 
 
+
+
 def auth_login(request):
 	print("shdg suig gsdui saui ")
 
 	if request.method == "POST":
-		username = request.POST.get('username')
+		username = request.POST.get('email_or_emp_mobile_or_username')
 		password = request.POST.get('password')
 		user = authenticate(username=username, password=password)
 		if user:
@@ -234,10 +202,10 @@ def auth_login(request):
 			return HttpResponseRedirect('/clients/index')
 		else:
 
-			return render(request, 'clients/login.html',{'error':'Invalid credentials'})
+			return render(request, 'clients/login.html')
 	else:
-		form=LoginForm()
-		return render(request, 'clients/login.html',{'form':form})
+
+		return render(request, 'clients/login.html')
 
 
 
@@ -253,12 +221,16 @@ class UserFormView(FormView):
 	def post(self,request):
 		form=self.form_class(request.POST)
 		if form.is_valid():
-			user=form.save(commit=False)
-		username=form.cleaned_data['username']
-		password=form.cleaned_data['password1']
-		user.set_password(password)
-		user.save()
-		return redirect('/clients/')
+			print('hiasdfd')
+			user=form.save()
+			username=form.cleaned_data['username']
+			password=form.cleaned_data['password1']
+			user.set_password(password)
+			user.save()
+			return redirect('/clients/')
+
+		else:
+			print(form.errors)
 
 def home(request):
     return render(request,'clients/home.html')

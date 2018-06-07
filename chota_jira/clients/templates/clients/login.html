@@ -1,16 +1,14 @@
 {% load static %}
   <link rel="stylesheet" href="{% static 'clients/company.css' %}" />
 
-<form method="post">
+<form method="post" >
+
+
     {% csrf_token %}
 
-    <input type="text" name="username">
-    <input type="password" name="password">
-
-
-{% if error %}
-    {{error}}
-{% endif %}
+    <label>Username/Email/phone: <input type="text" name="email_or_emp_mobile_or_username"></label>
+    <label>Password: <input type="password" name="password"></label>
     <input type="submit" value="Submit" />
+
 </form>
 <a href="{%url 'clients:logout'%}"><button>logout</button></a>

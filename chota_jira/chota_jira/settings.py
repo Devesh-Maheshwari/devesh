@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from typing import List
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -37,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'clients.apps.ClientsConfig',
+    'apps.clients.apps.ClientsConfig',
 ]
 
 MIDDLEWARE = [
@@ -87,9 +89,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -126,5 +125,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'clients.User'
 LOGIN_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = [
+
+    'clients.backends.EmailBackend',
+    'clients.backends.MoblieBackend',
+    'clients.backends.UsernameBackend',
+    'django.contrib.auth.backends.ModelBackend',
+
+]
 
 
