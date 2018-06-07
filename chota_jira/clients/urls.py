@@ -5,6 +5,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from clients.views import auth_login
 
+
 app_name = 'clients'
 
 urlpatterns = [

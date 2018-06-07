@@ -1,5 +1,9 @@
 from django.shortcuts import render,get_object_or_404, redirect,HttpResponseRedirect,HttpResponse
 from django.urls import reverse_lazy,reverse
+#from django.contrib import messages
+#from django.conf import settings
+#from django.core.mail import send_mail
+
 
 from .models import Company,Project,Projectmodule,User
 from .forms import NameForm,EmployeeForm,ProjectForm,projectmodform,UserForm,LoginForm
@@ -13,7 +17,7 @@ from django.contrib.auth import authenticate
 
 
 
-@login_required
+@login_required(login_url='clients/login')
 def index(request):
 	company_list=Company.objects.order_by('id')
 	context={'company_list':company_list}

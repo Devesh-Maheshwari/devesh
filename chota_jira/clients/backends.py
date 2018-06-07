@@ -49,30 +49,6 @@ class MoblieBackend(ModelBackend):
             return None
 
 
-class UsernameBackend(ModelBackend):
-    def authenticate(self, request, username=None, password=None):
-        try:
-            User = get_user_model()
-            user = User.objects.get(username=username)
-            return user
-        except User.MultipleObjectsReturned:
-            user = User.objects.filter(username=username).order_by('id').first()
-        except User.DoesNotExist:
-            return None
-
-        if getattr(user, 'is_active') and user.check_password(password):
-            return user
-        return None
-
-    def get_user(self, user_id):
-        try:
-            User = get_user_model()
-            return User.objects.get(pk=user_id)
-        except User.DoesNotExist:
-            return None
-
-
-
 
 
 

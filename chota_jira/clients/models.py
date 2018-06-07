@@ -47,7 +47,7 @@ class User(AbstractUser):
 	salary = models.DecimalField(max_digits=7, decimal_places=3,default=0)
 	emp_name=models.CharField(max_length=30)
 	emp_email = models.EmailField()
-	emp_mobile = models.BigIntegerField(blank=True)
+	emp_mobile = models.CharField(max_length=12)
 
 
 

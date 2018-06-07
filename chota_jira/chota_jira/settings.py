@@ -10,6 +10,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+# for gmail or google apps
+EMAIL_USE_TLS =True
+Email_HOST='smtp@gmail.com'
+Email_HOST_USER='deveshmaheshwari100@gmail.com'
+Email_HOST_PASSWORD='9571790459'
+EMAIL_PORT=587
+
+
+
+
+
+
+
+
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -39,8 +54,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.clients.apps.ClientsConfig',
+    'clients.apps.ClientsConfig',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,9 +147,8 @@ AUTHENTICATION_BACKENDS = [
 
     'clients.backends.EmailBackend',
     'clients.backends.MoblieBackend',
-    'clients.backends.UsernameBackend',
     'django.contrib.auth.backends.ModelBackend',
 
 ]
 
-
+login_url='clients:login'
