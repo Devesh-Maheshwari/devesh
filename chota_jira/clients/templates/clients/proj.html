@@ -1,7 +1,7 @@
-<button> <a href="{% url 'clients:project' %}">add</a></button>
-{% if project_list %}
+<button> <a href="{% url 'clients:project' id %}">add</a></button>
+{% if company %}
 
-{% for proj in  %}
+{% for proj in company.project_set.all %}
 
 
 

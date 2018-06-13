@@ -151,4 +151,4 @@ AUTHENTICATION_BACKENDS = [
 
 ]
 
-login_url='clients:login'
+LOGIN_URL='/clients/login'

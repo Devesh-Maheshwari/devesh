@@ -12,18 +12,18 @@ class NameForm(forms.ModelForm):
 
 
 class EmployeeForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(EmployeeForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
-        if instance and instance.id:
-            self.fields['email'].widget.attrs['readonly'] = True
-
-    def clean_email(self):
-        instance = getattr(self, 'instance', None)
-        if instance and instance.id:
-            return instance.email
-        else:
-            return self.cleaned_data['email']
+    # def __init__(self, *args, **kwargs):
+    #     super(EmployeeForm, self).__init__(*args, **kwargs)
+    #     instance = getattr(self, 'instance', None)
+    #     if instance and instance.id:
+    #         self.fields['email'].widget.attrs['readonly'] = True
+    #
+    # def clean_email(self):
+    #     instance = getattr(self, 'instance', None)
+    #     if instance and instance.id:
+    #         return instance.email
+    #     else:
+    #         return self.cleaned_data['email']
 
     class Meta:
          model = User
@@ -34,11 +34,13 @@ class EmployeeForm(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
-	class Meta:
-		model = Project
-		fields='__all__'
+    company_name = forms.ModelChoiceField(queryset=Company.objects.all())
 
-	"""docstring for Project"""
+    class Meta:
+        model = Project
+        fields='__all__'
+
+    """docstring for Project"""
 	
 
 
@@ -61,5 +63,6 @@ class UserForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=30)
     password = forms.PasswordInput()
+
 
 

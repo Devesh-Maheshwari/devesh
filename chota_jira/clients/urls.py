@@ -1,9 +1,6 @@
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from clients.views import auth_login
 
 
 app_name = 'clients'
@@ -21,9 +18,9 @@ urlpatterns = [
 	path('delete1/<int:id>',views.delete_empview,name='delete'),
     path('delete/<int:id>',views.deleteview,name='delete12'),
     
-    path('p',views.projectindex,name='p'),
-    path('proj/',views.projectCreate.as_view(),name='project'),
-    path('proj/<int:id>',views.projectdetails,name='projectdetails'),
+    path('p/<int:id>',views.projectindex,name='p'),
+    path('proj/<int:id>',views.projectCreate.as_view(),name='project'),
+    path('proje/<int:id>',views.projectdetails,name='projectdetails'),
 
     path('project/<pk>/',views.projectedit.as_view(),name='projectedit'),
     path('project1/<pk>',views.projectdelete.as_view(),name='projectdelete'),

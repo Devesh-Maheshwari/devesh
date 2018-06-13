@@ -1,14 +1,11 @@
 from django.shortcuts import render,get_object_or_404, redirect,HttpResponseRedirect,HttpResponse
-from django.urls import reverse_lazy,reverse
-#from django.contrib import messages
-#from django.conf import settings
-#from django.core.mail import send_mail
+from django.urls import reverse_lazy
 
 
 from .models import Company,Project,Projectmodule,User
-from .forms import NameForm,EmployeeForm,ProjectForm,projectmodform,UserForm,LoginForm
-from django.contrib.auth import login, logout
-from django.views.generic import View
+from .forms import NameForm, EmployeeForm, ProjectForm, projectmodform, UserForm, LoginForm
+from django.contrib.auth import login
+
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -104,9 +101,10 @@ def deleteview(request,id):
 
 
 @login_required
-def projectindex(request):
-	project_list=Project.objects.order_by('id')
-	context={'project_list':project_list}
+def projectindex(request,id):
+
+	company=Company.objects.get(pk=id)
+	context={'company':company, 'id' : id}
 	return render(request, 'clients/proj.html',context)
 
 
@@ -123,18 +121,31 @@ def projectdetails(request,id):
 
 
 class projectCreate(CreateView):
-	model = Project
-	fields = ['company_name','project_name','startdate','end_date','description','project_code']
+	form_class = ProjectForm
+
 	template_name = 'clients/project.html'
 
-	success_url = reverse_lazy('clients:p')
+	def form_valid(self, ProjectForm):
+		ProjectForm.instance.created_by = self.request.user
+		return super().form_valid(ProjectForm)
+
+	# success_url = reverse('clients:p')
 	success_message = "project was added successfully"
+
+
+	# def get_form_kwargs(self):
+	#  	kwargs = super().get_form_kwargs()
+	#  	path = self.request.path.split('/')
+	#  	id = path[len(path) - 1]
+	#  	kwargs.update(project_id=id)
+	# 	return kwargs
 
 class projectedit(UpdateView):
 	model=Project
 	template_name = 'clients/project.html'
 	fields = ['company_name', 'project_name', 'startdate', 'end_date', 'description', 'project_code']
 	# success_url = reverse_lazy('clients:projectdetails')
+
 
 	def get_success_url(self, **kwargs):
 		return reverse_lazy('clients:projectdetails', args=(self.object.id,))
@@ -198,8 +209,12 @@ def auth_login(request):
 	print("shdg suig gsdui saui ")
 
 	if request.method == "POST":
-		username = request.POST.get('email_or_emp_mobile_or_username')
+		form = LoginForm(request.POST)
+
+		print(request.POST)
+		username = request.get('email_or_emp_mobile_or_username')
 		password = request.POST.get('password')
+		print()
 		user = authenticate(username=username, password=password)
 		if user:
 			login(request,user)
