@@ -34,14 +34,20 @@ class EmployeeForm(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
-    company_name = forms.ModelChoiceField(queryset=Company.objects.all())
+    company_name = forms.ModelChoiceField(
+        queryset=Company.objects.none(),
+        empty_label=None
+    )
 
     class Meta:
         model = Project
         fields='__all__'
 
-    """docstring for Project"""
-	
+    def __init__(self, *args, **kwargs):
+        self.company_id = kwargs.pop('company_id')
+        super(ProjectForm, self).__init__(*args, **kwargs)
+        self.fields['company_name'].queryset = Company.objects.filter(id=self.company_id)
+
 
 
 class projectmodform(forms.ModelForm):

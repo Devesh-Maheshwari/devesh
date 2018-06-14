@@ -18,12 +18,14 @@ from django.contrib.auth import authenticate
 def index(request):
 	company_list=Company.objects.order_by('id')
 	context={'company_list':company_list}
+
 	return render(request, 'clients/index.html',context)
 
 
 @login_required
 def details(request,id):
 	company =  get_object_or_404(Company, pk=id)
+
 	return render(request, 'clients/details.html',{'company':company})
 
 
@@ -129,6 +131,12 @@ class projectCreate(CreateView):
 		ProjectForm.instance.created_by = self.request.user
 		return super().form_valid(ProjectForm)
 
+	def get_form_kwargs(self):
+		kwargs = super(projectCreate, self).get_form_kwargs()
+		tmp = (self.request.path).split('/')
+		comp_id = tmp[len(tmp)-1]
+		kwargs['company_id'] = int(comp_id)
+		return kwargs
 	# success_url = reverse('clients:p')
 	success_message = "project was added successfully"
 
@@ -212,7 +220,7 @@ def auth_login(request):
 		form = LoginForm(request.POST)
 
 		print(request.POST)
-		username = request.get('email_or_emp_mobile_or_username')
+		username = request.POST.get('email_or_emp_mobile_or_username')
 		password = request.POST.get('password')
 		print()
 		user = authenticate(username=username, password=password)

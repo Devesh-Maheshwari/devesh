@@ -11,19 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 # for gmail or google apps
-EMAIL_USE_TLS =True
-Email_HOST='smtp@gmail.com'
-Email_HOST_USER='deveshmaheshwari100@gmail.com'
-Email_HOST_PASSWORD='9571790459'
-EMAIL_PORT=587
-
-
-
-
-
-
-
-
 
 import os
 
@@ -152,3 +139,15 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL='/clients/login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS =True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='deveshmaheshwari100@gmail.com'
+EMAIL_HOST_PASSWORD='9571790459'
+EMAIL_PORT=587
+
+
+
+
